@@ -4,8 +4,8 @@ const fileSchema = new Schema({
   file: {
     type: String,
     require: true,
-    comments: [{ clientId: String, comment: String }],
   },
+  comments: [{ clientId:Schema.Types.ObjectId,ref:"Client", comment: String }]
 });
 
 const File = model("File", fileSchema);

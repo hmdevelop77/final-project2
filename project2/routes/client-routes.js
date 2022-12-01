@@ -2,6 +2,9 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const router = express.Router();
 const Client = require("../models/client-model");
+const File = require("../models/file-model");
+const fileUploader = require("../config/cloudinary.config");
+
 const mongoose = require("mongoose");
 const { isLoggedIn, isLoggedOut } = require("../middleWare/route-guard");
 
@@ -89,21 +92,41 @@ router.post("/client/login", isLoggedOut, async (req, res, next) => {
     next(error);
   }
 });
-router.post("/client/logout",(req,res,next)=>{
-    req.session.destroy(error => {
-        if(error){
-            next(error);
-        }
-        res.redirect("/")
-    });
+router.post("/client/logout", (req, res, next) => {
+  req.session.destroy((error) => {
+    if (error) {
+      next(error);
+    }
+    res.redirect("/");
+  });
 });
 
-router.get("/client/home",isLoggedIn,(req,res,next)=>{
-    try {
-   res.render("./client/homepage-client")     
-    } catch (error) {
-     next(error)   
-    }  
+router.get("/client/create", isLoggedIn, async (req, res, next) => {
+  try {
+    const audio = await File.find();
+    console.log("this is our audio:",audio[0].file)
+    res.render("./client/homepage-client", { audio });
+  } catch (error) {
+    next(error);
+  }
 });
+
+router.post(
+  "/client/create",
+  isLoggedIn,
+  fileUploader.single("file"),
+  async (req, res, next) => {
+    try {
+      console.log("request file", req.file);
+      const { title } = req.body;
+      const audio = {title, file: req.file.path}
+      const newFile = await File.create(audio);
+      console.log("Audio created:", newFile.title);
+      res.redirect("/client/create");
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 module.exports = router;

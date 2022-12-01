@@ -1,73 +1,109 @@
-const express = require('express');
-//const bcrypt = require("bcryptjs");
+const express = require("express");
+const bcrypt = require("bcryptjs");
 const router = express.Router();
-const Client = require ('../models/client-model');
+const Client = require("../models/client-model");
 const mongoose = require("mongoose");
+const { isLoggedIn, isLoggedOut } = require("../middleWare/route-guard");
 
+const saltRounds = 10;
 
-router.get("/client/signup",(req,res,next)=>{
-try {
-    res.render("./client/sign-client")
-} catch (error) {
-    next(error)
-}
+router.get("/client/signup", isLoggedOut, (req, res, next) => {
+  try {
+    res.render("./client/sign-client");
+  } catch (error) {
+    next(error);
+  }
 });
-router.post("/client/signup",async(req,res,next)=>{
-    try {
-        const { username, email, password } = req.body;
-        if (!username || !email || !password) {
-            return res.render("./client/sign-client", {
-              errorMessage: "All field are required",
-            });
-          }
-          await Client.create({ username, email, password } )
-          res.redirect("/profile")
-    } catch (error) {
-        next(error)
+router.post("/client/signup", isLoggedOut, async (req, res, next) => {
+  try {
+    const { username, email, password } = req.body;
+    if (!username || !email || !password) {
+      return res.render("./client/sign-client", {
+        errorMessage: "All field are required",
+      });
     }
-})
-router.get("/profile", (req, res, next) => {
-    try {
-        const{username} = req.session;
-      res.render("./client/profil-client");
-    } catch (error) {
-      next(error);
+    //   const passwordRegex =
+    //   /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/gm; //password validating with uppercase number ....
+    // if (!passwordRegex.test(password)) {
+    //   return res.status(500).render("./client/sign-client", {
+    //     errorMessage:
+    //       "Password needs to be at least 6 characters and must contain one uppercase letter, one lowercase letter, a number and a special character.",
+    //   });
+    // }
+    const salt = await bcrypt.genSalt(saltRounds);
+    const passwordHash = await bcrypt.hash(password, salt);
+    await Client.create({ username, email, passwordHash });
+    res.redirect("/client/profile");
+  } catch (error) {
+    // if (error instanceof mongoose.Error.ValidationError) {
+    //     res.status(500).render("./client/sign-client", { errorMessage: error.message }); // to fill everything
+    //   } else if (error.code === 11000) {
+    //     // to check if it exist
+    //     res.status(500).render("./client/sign-client", {
+    //       errorMessage: "User or email already in use.",
+    //     });
+    //   } else {
+    next(error);
+  }
+  // };
+});
+router.get("/client/profile", isLoggedIn, (req, res, next) => {
+  try {
+    const { currentUser } = req.session;
+    console.log(req.session);
+    res.render("./client/profil-client", currentUser);
+  } catch (error) {
+    next(error);
+  }
+});
+router.get("/client/login", isLoggedOut, (req, res, next) => {
+  try {
+    res.render("./client/login-client");
+  } catch (error) {
+    next(error);
+  }
+});
+router.post("/client/login", isLoggedOut, async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+    //console.log("--> Session",req.session)
+    if (email === "" || password === "") {
+      return res.render("./client/login-client", {
+        errorMessage: "Please enter both email and password.",
+      });
     }
-  });
-  router.get("/client/login", (req, res, next) => {
-    try {
-      res.render("./client/login-client");
-    } catch (error) {
-      next(error);
+    const client = await Client.findOne({ email });
+    if (!client) {
+      return res.render("./client/login-client", {
+        errorMessage: "User is not registered",
+      });
+    } else if (bcrypt.compareSync(password, client.passwordHash)) {
+      req.session.currentUser = client;
+      res.redirect("/client/profile");
+    } else {
+      res.render("./client/login-client", {
+        errorMessage: "Incorrect password.",
+      });
     }
-  });
-router.post("/client/login",async(req,res,next)=>{
+  } catch (error) {
+    next(error);
+  }
+});
+router.post("/client/logout",(req,res,next)=>{
+    req.session.destroy(error => {
+        if(error){
+            next(error);
+        }
+        res.redirect("/")
+    });
+});
+
+router.get("/client/home",isLoggedIn,(req,res,next)=>{
     try {
-        const { username, password } = req.body;
-        console.log("--> Session",req.session)
-        if (username === "" || password === "") {
-            return res.render("./client/login-client", {
-              errorMessage: "Please enter both username and password.",
-            });
-          }
-          const client = await Client.findOne({ username });
-          if (!client) {
-            return res.render("./client/login-client", {
-              //when we are expecting an error we put return
-              errorMessage: "User is not registered",
-            });
-          }else{
-              req.session.currentUser = client;
-             res.redirect("/profile");  
-          }
+   res.render("./client/homepage-client")     
     } catch (error) {
-        next(error)
-    }
-})
-
-
-
-
+     next(error)   
+    }  
+});
 
 module.exports = router;
-

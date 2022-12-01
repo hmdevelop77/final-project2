@@ -12,7 +12,7 @@ module.exports = (app) => {
       cookie: {
         sameSite: process.env.NODE_ENV === "production" ? "none," : "lax",
         secure:process.env.NODE_ENV === "production",
-        maxAge: 60000
+        maxAge: 600000
       },
       rolling:true,
       store:Mongostore.create({            // storing in mongodb the session 

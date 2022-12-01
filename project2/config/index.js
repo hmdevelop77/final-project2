@@ -37,3 +37,9 @@ module.exports = (app) => {
   // Handles access to the favicon
   app.use(favicon(path.join(__dirname, "..", "public", "images", "favicon.ico")));
 };
+
+const myMiddleware = (req,res,next) => {
+  console.log("My middleware running!");
+  req.ironhacker = "Oussama";
+  next();
+}

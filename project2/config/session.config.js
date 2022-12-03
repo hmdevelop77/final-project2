@@ -1,6 +1,8 @@
 const session = require("express-session");
 const Mongostore=require("connect-mongo")
-const mongoose= require("mongoose")
+const mongoose= require("mongoose");
+const passport = require("passport");
+const bindClient = require("../middleWare/bind-client")
 
 module.exports = (app) => {
   app.set("trust proxy", 1);
@@ -20,4 +22,9 @@ module.exports = (app) => {
       })
     })
   );
+
+  app.use(passport.initialize());
+  app.use(passport.session());
+  app.use(bindClient)
+ 
 };

@@ -44,6 +44,10 @@ Password
             <button class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" type="submit">Login</button>
 </form>
             <hr class="my-4">
+            {{#unless client}}
+  <a href="/auth/google"> Login with Google</a>
+    {{/unless}}
+
 
             
 
@@ -53,8 +57,7 @@ Password
     </div>
   </div>
 </section>
-
-
+ 
 {{#if errorMessage}}
 <p>{{errorMessage}}</p>
 {{/if}}

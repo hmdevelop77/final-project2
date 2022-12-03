@@ -51,16 +51,8 @@
 
 <h2>All audios</h2>
 {{#each audio}}
-<h4>{{file}}</h4>
+
 <audio controls >
     <source src={{file}} >
         </audio>
-         <div id="audioplayer">
-          <i id="pButton" class="fas fa-play"></i>
-          <div id="timeline">
-            <div id="playhead"></div>
-          </div>
-        </div>
-       
-
 {{/each}}

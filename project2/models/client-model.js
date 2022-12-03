@@ -6,12 +6,12 @@ const clientSchema = new Schema(
     username: {
       type: String,
       trim: true,
-      required: [true, "Username is required"],
+     // required: [true, "Username is required"],
       unique: true
     },
     email: {
       type: String,
-      required: [true, "Email is required"],
+      // required: [true, "Email is required"],
       unique: true,
       lowercase: true,
       trim: true,
@@ -23,8 +23,9 @@ const clientSchema = new Schema(
     //dont forget to put passhash 
     passwordHash: {
       type: String,
-      required: true
-    }
+    //  required: true
+    },
+    googleId:String
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`    

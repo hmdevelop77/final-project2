@@ -3,11 +3,12 @@ const { Schema, model } = require("mongoose");
 // TODO: Please make sure you edit the User model to whatever makes sense in this case
 const clientSchema = new Schema(
   {
+    admin: false,
     username: {
       type: String,
       trim: true,
-     // required: [true, "Username is required"],
-      unique: true
+      // required: [true, "Username is required"],
+      unique: true,
     },
     email: {
       type: String,
@@ -18,18 +19,18 @@ const clientSchema = new Schema(
       match: [
         /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
         "Please provide a valid email.",
-      ]
+      ],
     },
-    //dont forget to put passhash 
+    //dont forget to put passhash
     passwordHash: {
       type: String,
-    //  required: true
+      //  required: true
     },
-    googleId:String
+    googleId: String,
   },
   {
-    // this second object adds extra properties: `createdAt` and `updatedAt`    
-    timestamps: true
+    // this second object adds extra properties: `createdAt` and `updatedAt`
+    timestamps: true,
   }
 );
 

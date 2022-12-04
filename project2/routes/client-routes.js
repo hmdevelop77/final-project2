@@ -49,7 +49,7 @@ router.post("/client/signup", isLoggedOut, async (req, res, next) => {
       } else {
     next(error);
   }
-  };
+   };
 });
 router.get("/client/profile", isLoggedIn, (req, res, next) => {
   try {
@@ -158,7 +158,7 @@ router.get("/client/create", isLoggedIn, async (req, res, next) => {
   try {
     const audio = await File.find();
     // console.log("this is our audio:",audio[0].file)
-    res.render("./client/homepage-client", { audio });
+    res.render("./client/create-audios", { audio });
   } catch (error) {
     next(error);
   }
@@ -181,5 +181,15 @@ router.post(
     }
   }
 );
+
+router.get("/client/audios", isLoggedIn, async (req, res, next) => {
+  try {
+    const audio = await File.find();
+    // console.log("this is our audio:",audio[0].file)
+    res.render("./client/audios-client", { audio });
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = router;

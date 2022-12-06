@@ -15,11 +15,11 @@
               </div>
               <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                 <div class="form-group">
-                  <label for="username">Username</label>
+                  <label for="newUsername">Username</label>
                   <input
                     type="text"
                     class="form-control"
-                    id="username"
+                    id="newUsername"
                     value="{{client.username}}"
                     placeholder="Username"
                   />
@@ -27,37 +27,23 @@
               </div>
               <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                 <div class="form-group">
-                  <label for="email">Email</label>
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="email"
-                    value="{{client.email}}"
-                    placeholder="Enter email ID"
-                  />
-                </div>
-              </div>
-              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                <div class="form-group">
-                  <label for="phone">password</label>
+                  <label for="oldPassword">Old password</label>
                   <input
                     type="password"
                     class="form-control"
-                    id="password"
-                    value="{{client.passwordHash}}"
+                    id="oldPassword"
                     placeholder="enter password"
                   />
                 </div>
               </div>
               <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                 <div class="form-group">
-                  <label for="website">Confirm password</label>
+                  <label for="newPassword">New password</label>
                   <input
                     type="password"
                     class="form-control"
-                    id="password"
-                    value="{{client.passwordHash}}"
-                    placeholder="confirm password"
+                    id="newPassword"
+                    placeholder="enter password"
                   />
                 </div>
               </div>
@@ -66,8 +52,8 @@
               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="text-right">
                   <button
-                    type="button"
-                    id="submit"
+                    type="submit"
+                    
                     name="submit"
                     class="btn btn-primary"
                   >Update</button>

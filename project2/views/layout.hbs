@@ -48,12 +48,16 @@
             <li class="nav-item">
               <a class="nav-link" href="/client/create">Create audios</a>
             </li>
+            {{#unless client}}
             <li class="nav-item">
               <a class="nav-link" href="/client/login">Login</a>
             </li>
+            {{/unless}}
+            {{#unless client}}
             <li class="nav-item">
               <a class="nav-link" href="/client/signup">Signup</a>
             </li>
+            {{/unless}}
             <li class="nav-item">
              {{#if client}}
               <form action="/client/logout" method="post">

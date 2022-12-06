@@ -90,7 +90,6 @@ const newProfile= await Client.findByIdAndUpdate(client._id, {username:newUserna
   }
 }
 )
-
 router.get("/client/login", isLoggedOut, (req, res, next) => {
   try {
     res.render("./client/login-client");

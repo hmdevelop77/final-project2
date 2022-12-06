@@ -63,15 +63,16 @@ router.get("/client/profile", isLoggedIn, (req, res, next) => {
 router.post("/client/profile",isLoggedIn,async(req,res,next)=>{
   try {
     const {newUsername,oldPassword,newPassword} = req.body
-    const updatedProfile= await Client.findById(client._id)
-    if(oldPassword === "" && newPassword ===""){
- const usernameUpdated = await Client.findByIdAndUpdate(client._id, {username:newUsername})
-    }else{
-     if(bcrypt.compareSync(oldPassword,updatedProfile.passwordHash)){
+    const client = req.user;
+    const profile= await Client.findById(client._id)
+   // if(oldPassword === "" && newPassword ===""){
+  // const clientUpdated = await Client.findByIdAndUpdate(client._id, {username:newUsername})
+   // }else{
+     if(bcrypt.compareSync(oldPassword,profile.passwordHash)){
 //hash the password
    const passwordRegex =
 /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/gm; //password validating with uppercase number ....
-if (!passwordRegex.test(password)) {
+if (!passwordRegex.test(newPassword)) {
 return res.status(500).render("./client/sign-client", {
   errorMessage:
     "Password needs to be at least 6 characters and must contain one uppercase letter, one lowercase letter, a number and a special character.",
@@ -83,9 +84,7 @@ const newProfile= await Client.findByIdAndUpdate(client._id, {username:newUserna
     }else {
       res.render("auth/login", { errorMessage: "Incorrect password." });
     } 
-    }
-    
-    redirect(`/client/profile`)
+    res.redirect(`/client/profile`)
   } catch (error) {
     next(error)
   }

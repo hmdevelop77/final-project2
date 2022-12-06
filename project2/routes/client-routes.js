@@ -54,7 +54,7 @@ router.post("/client/signup", isLoggedOut, async (req, res, next) => {
 router.get("/client/profile", isLoggedIn, (req, res, next) => {
   try {
     
-   console.log(req.session);
+   //console.log(req.session);
     res.render("./client/profil-client");
   } catch (error) {
     next(error);

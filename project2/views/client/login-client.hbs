@@ -1,4 +1,4 @@
-{{!-- <h2> Login</h2>
+{{! <h2> Login</h2>
 <form action="/client/login" method="post" >
 <label for="">
     Email
@@ -10,8 +10,10 @@ Password
 </label>
 
 <button type="submit"> login </button>
-</form> --}}
-<section class="vh-100" style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');"
+</form> }}
+<section
+  class="vh-100"
+  style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');"
 >
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
@@ -20,36 +22,50 @@ Password
           <div class="card-body p-5 text-center">
 
             <h3 class="mb-5">Login</h3>
-<form action="/client/login" method="post" >
-            <div class="form-outline mb-4">
-             
-              <label class="form-label" for="email">Email
-              <input type="email" id="email" class="form-control form-control-lg" name="email" required />   
+            <form action="/client/login" method="post">
+              <div class="form-outline mb-4">
+
+                <label class="form-label" for="email">Email
+                  <input
+                    type="email"
+                    id="email"
+                    class="form-control form-control-lg"
+                    name="email"
+                    placeholder="E-mail"
+                    required
+                  />
                 </label>
-            </div>
+              </div>
 
-            <div class="form-outline mb-4">
-              
-              <label class="form-label" for="password">Password
-             <input type="password" id="password" class="form-control form-control-lg" name="password" placeholder="*****" required/>   
-              </label>
-            </div>
+              <div class="form-outline mb-4">
 
-            <!-- Checkbox -->
-            {{!-- <div class="form-check d-flex justify-content-start mb-4">
+                <label class="form-label" for="password">Password
+                  <input
+                    type="password"
+                    id="password"
+                    class="form-control form-control-lg"
+                    name="password"
+                    placeholder="Password"
+                    required
+                  />
+                </label>
+              </div>
+
+              <!-- Checkbox -->
+              {{! <div class="form-check d-flex justify-content-start mb-4">
               <input class="form-check-input" type="checkbox" value="" id="form1Example3" />
               <label class="form-check-label" for="form1Example3"> Remember password </label>
-            </div> --}}
+            </div> }}
 
-            <button class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" type="submit">Login</button>
-</form>
-            <hr class="my-4">
+              <button
+                class="btn btn-success btn-block btn-lg gradient-custom-4 text-body"
+                type="submit"
+              >Login</button>
+            </form>
+            <hr class="my-4" />
             {{#unless client}}
-  <a href="/auth/google"> Login with Google</a>
-    {{/unless}}
-
-
-            
+              <a href="/auth/google"> Login with Google</a>
+            {{/unless}}
 
           </div>
         </div>
@@ -57,7 +73,7 @@ Password
     </div>
   </div>
 </section>
- 
+
 {{#if errorMessage}}
-<p>{{errorMessage}}</p>
+  <p>{{errorMessage}}</p>
 {{/if}}

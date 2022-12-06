@@ -54,12 +54,23 @@ router.post("/client/signup", isLoggedOut, async (req, res, next) => {
 router.get("/client/profile", isLoggedIn, (req, res, next) => {
   try {
     
-   // console.log(req.session);
+   console.log(req.session);
     res.render("./client/profil-client");
   } catch (error) {
     next(error);
   }
 });
+router.post("/client/profile",isLoggedIn,async(req,res,next)=>{
+  try {
+    const {username,email,password} = req.body
+    const updatedProfile= await Client.findByIdAndUpdate({username,email,password})
+    redirect("/")
+  } catch (error) {
+    next(error)
+  }
+}
+)
+
 router.get("/client/login", isLoggedOut, (req, res, next) => {
   try {
     res.render("./client/login-client");

@@ -1,13 +1,104 @@
+<div class="profile-updated">
+  {{#if client}}
 
-{{#if client}}
-<h4> Welcome {{client.username}} </h4>
+    <h4> Welcome {{client.username}} </h4>
+    <h4> Welcome {{email}} </h4>
+    <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+      <div class="card h-100">
+        {{! This form is to update user profile }}
+        <form action="/client/profile" method="post">
+          <div class="card-body">
+            <div class="row gutters">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <h6 class="mb-2 text-primary">Personal Details</h6>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="form-group">
+                  <label for="username">Username</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="username"
+                    value="{{client.username}}"
+                    placeholder="Username"
+                  />
+                </div>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    value="{{client.email}}"
+                    placeholder="Enter email ID"
+                  />
+                </div>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="form-group">
+                  <label for="phone">password</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    value="{{client.passwordHash}}"
+                    placeholder="enter password"
+                  />
+                </div>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="form-group">
+                  <label for="website">Confirm password</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    value="{{client.passwordHash}}"
+                    placeholder="confirm password"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row gutters">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="text-right">
+                  <button
+                    type="button"
+                    id="submit"
+                    name="submit"
+                    class="btn btn-primary"
+                  >Update</button>
 
+                </div>
+              </div>
+            </div>
 
+          </div>
+        </form>
+        {{! This form is to delete user profile }}
+        <form action="/books/{{_id}}/delete" method="post">
 
-{{else}}
-<p>Not login yet</p>
-{{/if}}
-      
-         
-       
+          <div class="row gutters">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <div class="text-right">
+                <button
+                  type="submit"
+                  id="delete"
+                  name="delete"
+                  class="btn btn-secondary"
+                >Delete</button>
+              </div>
+            </div>
+          </div>
+        </form>
 
+      </div>
+
+    </div>
+
+  {{else}}
+    <p>Not login yet</p>
+  {{/if}}
+</div>

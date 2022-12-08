@@ -7,10 +7,16 @@
         </audio>
         <br>
    <h4>The Title: {{title}} </h4>   
-   <form action="/clients/audios/comment" method="post">
+   {{#each comments}}
+   <div>
+ <h6> {{comments.username}}</h6> : <p>{{comments.text}}</p>    
+   </div>
+   {{/each}}
+   <form action="/client/audios" method="post">
 <div>
-<textarea name="comments" id="comments"></textarea>
+<textarea name="text" id="text"></textarea>
 </div>
+<input type="text" value="{{_id}}" name="id" hidden>
  <button type="submit"> comment</button>
 </form>
         <hr>

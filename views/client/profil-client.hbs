@@ -24,8 +24,8 @@
                     placeholder="Username"
                   />
                 </div>
-              </div>
-              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+              
+              
                 <div class="form-group">
                   <label for="oldPassword">Old password</label>
                   <input
@@ -36,8 +36,8 @@
                     placeholder="enter password"
                   />
                 </div>
-              </div>
-              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+              
+              
                 <div class="form-group">
                   <label for="newPassword">New password</label>
                   <input
@@ -65,7 +65,7 @@
           </div>
         </form>
         {{! This form is to delete user profile }}
-        <form action="/books/{{_id}}/delete" method="post">
+        <form action="/client/delete" method="post">
 
           <div class="row gutters">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -80,9 +80,7 @@
             </div>
           </div>
         </form>
-
       </div>
-
     </div>
 
   {{else}}

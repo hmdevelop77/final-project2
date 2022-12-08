@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const router = express.Router();
 const Client = require("../models/client-model");
 const File = require("../models/file-model");
+const Comment = require("../models/comments-model");
 const fileUploader = require("../config/cloudinary.config");
 
 const mongoose = require("mongoose");
@@ -65,9 +66,9 @@ router.post("/client/profile",isLoggedIn,async(req,res,next)=>{
     const {newUsername,oldPassword,newPassword} = req.body
     const client = req.user;
     const profile= await Client.findById(client._id)
-   // if(oldPassword === "" && newPassword ===""){
-  // const clientUpdated = await Client.findByIdAndUpdate(client._id, {username:newUsername})
-   // }else{
+   if(oldPassword === "" && newPassword ===""){
+  const clientUpdated = await Client.findByIdAndUpdate(client._id, {username:newUsername})
+   }else{
      if(bcrypt.compareSync(oldPassword,profile.passwordHash)){
 //hash the password
    const passwordRegex =
@@ -84,12 +85,24 @@ const newProfile= await Client.findByIdAndUpdate(client._id, {username:newUserna
     }else {
       res.render("auth/login", { errorMessage: "Incorrect password." });
     } 
+  }
     res.redirect(`/client/profile`)
   } catch (error) {
     next(error)
   }
 }
 )
+//  delete the profile
+router.post("/client/delete",isLoggedIn, async (req, res, next) => {
+  try {
+    const client = req.user;
+    await Client.findByIdAndDelete(client);
+    res.redirect("/");
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.get("/client/login", isLoggedOut, (req, res, next) => {
   try {
     res.render("./client/login-client");
@@ -215,11 +228,25 @@ router.post(
 router.get("/client/audios", isLoggedIn, async (req, res, next) => {
   try {
     const audio = await File.find();
-    // console.log("this is our audio:",audio[0].file)
+    const comments= await Comment.find();
     res.render("./client/audios-client", { audio });
   } catch (error) {
     next(error);
   }
 });
+router.post("/clients/audios/comment", isLoggedIn,async (req,res,next)=>{
+  try {
+    const audio = await File.find();
+   const text = req.body;
+   const comment = {username: req.user, text:text}
+  // console.log(comment)
+    const comments= await Comment.create(comment);
+    res.render("./client/audios-client", {audio},{comment});
+  } catch (error) {
+    next(error);
+  }
+})
+
+
 
 module.exports = router;

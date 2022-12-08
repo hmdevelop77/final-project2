@@ -6,9 +6,15 @@
     <source src={{file}} >
         </audio>
         <br>
-       <h3> {{title}}</h3>
+   <h4>The Title: {{title}} </h4>   
+   <form action="/clients/audios/comment" method="post">
+<div>
+<textarea name="comments" id="comments"></textarea>
+</div>
+ <button type="submit"> comment</button>
+</form>
         <hr>
 {{/each}}
 
-<input type="text">
+
 </div>

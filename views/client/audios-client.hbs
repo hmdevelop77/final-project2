@@ -1,26 +1,27 @@
-
 <h2>All audios</h2>
 <div>
-{{#each audio}}
+  
+{{#each audio }}
+ 
 <audio controls >
     <source src={{file}} >
         </audio>
         <br>
-   <h4>The Title: {{title}} </h4>   
-   {{#each comments}}
-   <div>
- <h6> {{comments.username}}</h6> : <p>{{comments.text}}</p>    
-   </div>
-   {{/each}}
-   <form action="/client/audios" method="post">
+   <h4>The Title: {{title}} </h4>  
+   {{#each comments}}     
+    <li>
+ {{username}} : {{text}}
+    </li>
+   </ul>
+   {{/each}} 
+    <form action="/client/audios" method="post">
 <div>
 <textarea name="text" id="text"></textarea>
 </div>
 <input type="text" value="{{_id}}" name="id" hidden>
  <button type="submit"> comment</button>
 </form>
-        <hr>
-{{/each}}
-
-
-</div>
+  <ul>
+<hr>
+ {{/each}}
+ </div>

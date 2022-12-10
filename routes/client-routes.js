@@ -227,8 +227,8 @@ router.post(
 
 router.get("/client/audios", isLoggedIn, async (req, res, next) => {
   try {
-    const audio = await File.find().populate("comments");
-    const comments= await Comment.find();
+    const audio = await File.find().populate({path:"comments"});
+    //const comments= await Comment.find();
     res.render("./client/audios-client", { audio });
   } catch (error) {
     next(error);
@@ -239,14 +239,14 @@ router.post("/client/audios", isLoggedIn,async (req,res,next)=>{
    const {text, id} = req.body;
    const commentBody = {username: req.user.username, text, post:id}
   // console.log(req.params)
-  console.log(id)
+ // console.log(id)
    const comment= await Comment.create(commentBody);
     const newFIle =  await File.findByIdAndUpdate( id , {
     $push: {
       comments: comment._id
     }
    }, {new: true})
-   console.log(newFIle)
+  // console.log(newFIle)
   
 res.redirect("/client/audios");
   } catch (error) {

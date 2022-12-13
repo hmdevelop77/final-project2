@@ -27,6 +27,7 @@ const isLoggedOut = (req,res,next )=>{
     next();
 }
 
+
 // const isAdmin = (req,res,next)=>{
 //     if(req.session.currentUser.admin){
 //         return res.redirect("/client/create")

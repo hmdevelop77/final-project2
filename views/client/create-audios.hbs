@@ -1,22 +1,26 @@
 <h2>Add an audio<audio src=""></audio></h2>
-<form action="/client/create" method="post" enctype="multipart/form-data">
-<label for="title">
+
+<div class="mb-3">
+ <form action="/client/create" method="post" enctype="multipart/form-data">
+<label for="title" class="form-label">
    Title:
    <input type="text" name="title" id="title">
 </label>
-<label for="file">
-    Audio:
-    <input type="file" name="file" id="file">
-</label>
-
+<label for="file" class="form-label">
+    <input type="file" name="file" id="file" class="form-control">
+</label class="form-label">
 <button type="submit">Create</button>
 </form>
+</div>
+
+
 
 
 <h2>All audios</h2>
 {{#each audio}}
-
 <audio controls >
     <source src={{file}} >
         </audio>
+        <h4>{{title}}</h4>
+        <hr>
 {{/each}}

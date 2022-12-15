@@ -2,26 +2,32 @@
 <div>
   
 {{#each audio }}
- 
+
 <audio controls >
     <source src={{file}} >
         </audio>
         <br>
    <h4>The Title: {{title}} </h4>  
-   {{#each comments}}     
-    <li>
+   {{!-- {{#each comments}} 
+  
+   <ul class="list-group comments-div">  
+    <li class="list-group-item ">
  {{username}} : {{text}}
     </li>
    </ul>
+   {{/each}}  --}}
+   {{#each comments}} 
+   <div class="list-group list-group-item comments-div">{{username}} : {{text}}</div>  
    {{/each}} 
+
     <form action="/client/audios" method="post">
 <div>
-<textarea name="text" id="text"></textarea>
+<input name="text" id="text" placeholder="comment ....">
 </div>
 <input type="text" value="{{_id}}" name="id" hidden>
- <button type="submit"> comment</button>
+ <button type="submit" class="btn btn-light"> comment</button>
 </form>
-  <ul>
+  
 <hr>
  {{/each}}
  </div>

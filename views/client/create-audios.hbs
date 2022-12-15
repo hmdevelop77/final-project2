@@ -12,15 +12,12 @@
 <button type="submit">Create</button>
 </form>
 </div>
-
-
-
-
 <h2>All audios</h2>
 {{#each audio}}
+<h4 class="title-audio">{{title}}</h4>
 <audio controls >
     <source src={{file}} >
         </audio>
-        <h4>{{title}}</h4>
+        
         <hr>
 {{/each}}

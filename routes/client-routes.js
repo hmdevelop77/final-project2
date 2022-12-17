@@ -167,15 +167,7 @@ router.post("/client/login", isLoggedOut, (req, res, next) => {
   })(req, res, next);
 });
 
-// router.post("/client/logout", (req, res, next) => {
-//   req.session.destroy((error) => {
-//     if (error) {
-//       next(error);
-//     }
-//     res.redirect("/");
-//   });
-// });
-
+// to logout
 router.post("/client/logout", (req, res, next) => {
   req.logout(error => {
     if (error) {
@@ -200,7 +192,6 @@ router.get("/auth/google/callback",passport.authenticate("google",{
 router.get("/client/create", isLoggedIn, async (req, res, next) => {
   try {
     const audio = await File.find();
-    // console.log("this is our audio:",audio[0].file)
     res.render("./client/create-audios", { audio });
   } catch (error) {
     next(error);
@@ -213,7 +204,6 @@ router.post(
   fileUploader.single("file"),
   async (req, res, next) => {
     try {
-      // console.log("request file", req.file);
       const { title } = req.body;
       const audio = { title, file: req.file.path };
       const newFile = await File.create(audio);
@@ -238,16 +228,13 @@ router.post("/client/audios", isLoggedIn,async (req,res,next)=>{
   try {
    const {text, id} = req.body;
    const commentBody = {username: req.user.username, text, post:id}
-  // console.log(req.params)
- // console.log(id)
    const comment= await Comment.create(commentBody);
     const newFIle =  await File.findByIdAndUpdate( id , {
     $push: {
       comments: comment._id
     }
    }, {new: true})
-  // console.log(newFIle)
-  
+
 res.redirect("/client/audios");
   } catch (error) {
     next(error);

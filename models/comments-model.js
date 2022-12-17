@@ -7,4 +7,5 @@ const commentsSchema = new Schema({
 
   });
   const Comment = model("Comment", commentsSchema);
+  
   module.exports = Comment;
